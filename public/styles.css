@@ -1,0 +1,506 @@
+body {
+    background-color: rgb(252, 169, 3);
+    font: 1rem 'Fira Sans', sans-serif;
+}
+
+#LoginLogo {
+    display: block; /* display image as block element */
+    margin: 0 auto; /* center image horizontally */
+    padding: 70px;
+}
+
+.Inputs {
+    display: flex; /* display parent as flex container */
+    flex-direction: column;
+    align-items: center; /* center input vertically */
+    justify-content: center; /* center input horizontally */
+    font: 1rem 'Fira Sans', sans-serif;
+}
+
+#ParentLoginButton {
+    text-align: center;
+}
+
+#LoginButton {
+    width: 100px;
+    height: 25px;
+    color: white;
+    background-color: rgb(252, 169, 3);
+    font: 1.3rem 'Fira Sans', sans-serif;
+    border: 0px;
+}
+
+#ParentRedPill {
+    text-align: center;
+}
+
+#RedPill {
+    width: 100px;
+    margin:0 auto;
+    height: 25px;
+    color: white;
+    background-color: rgb(207, 27, 27);
+    font: 1rem 'Fira Sans', sans-serif;
+    font-size: 0.75em;
+    border: 0px;
+    border-radius: 15px;
+    
+}
+
+#HomeLogo {
+    display: block; /* display image as block element */
+    margin: 0 auto; /* center image horizontally */
+    padding: 20px;
+    padding-bottom: 50px;
+    cursor: pointer;
+}
+
+.feed-selector {
+    text-align: left;
+    color: white;
+    display: block;
+    height: 500px;
+    width: 25%;   
+    float: left;
+    align-items: left;
+    justify-content: left;
+}
+
+#first-edition-logo {  
+    width: 30px;
+    padding-left: 20px;
+    padding-bottom: 30px;
+    cursor: pointer;
+}
+
+
+#global-logo {
+    width: 30px;
+    padding-left: 20px;
+    padding-bottom: 30px;
+    cursor: pointer;
+}
+
+#messages-logo {
+    width: 30px;
+    padding-left: 20px;
+    padding-bottom: 30px;
+    cursor: pointer;
+}
+
+
+.publish-logo {
+    width: 30px;
+    padding-left: 15px;
+    padding-bottom: 30px;
+    
+}
+
+#publish-button {
+    background-color: transparent;
+    border: 0px;
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+}
+
+#settings-button {
+    background-color: transparent;
+    border: 0px;
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+}
+
+#settingsLogo {
+    width: 30px;
+    padding-left: 15px;
+    padding-bottom: 30px;
+}
+
+/* The Publsih Modal (background) */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Publish Modal Content/Box */
+.modal-content {
+    background-color: #fefefe;
+    border-radius: 10px;
+    margin: 15% auto; /* 15% from the top and centered */
+    padding: 20px;
+    border: 0px;
+    width: 80%; /* Could be more or less, depending on screen size */
+}
+
+/* The Close Button */
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+#publish-textarea {
+    min-height: 80%;
+    max-height: 80%;
+    min-width: 95%;
+    max-width: 95%;
+    padding-left: 5px;
+    font: 1.3rem 'Fira Sans', sans-serif;
+    align-content: center;
+    align-items: center;
+    border-radius: 10px;
+    border: 0px;
+}
+
+#padding-button {
+    padding-top: 10px;
+}
+
+#publish-text-button {
+    font: 'Fira Sans', sans-serif;
+    font-size: 20px;
+    color: white;
+    border-radius: 5px;
+    background-color: rgb(252, 169, 3);
+    border: 0px;
+}
+
+.settings-modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */   
+}
+
+.settings-modal-content {
+    background-color: #fefefe;
+    border-radius: 10px;
+    margin: 15% auto; /* 15% from the top and centered */
+    padding: 20px;
+    border: 0px;
+    min-width: 510px;
+    width: 60%; /* Could be more or less, depending on screen size */
+}
+
+.settingsSection{
+    display: flex;
+    flex-direction: row;
+    height: 100%;
+}
+
+#inputSection {
+    display: flex;
+    flex-direction: column;
+    height: 50%;
+    
+}
+
+#previewSection {
+    display: flex;
+    flex-direction: column;
+    height: 50%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#inputSection #userNameTextSettings {
+    flex: 1;
+    font: 'Fira Sans', sans-serif;
+    font-size: 15px;
+    color: rgb(187, 94, 28);
+    padding-bottom: 3px;
+}
+
+#inputSection #petnameInput {
+    flex: 1;
+    font: 0.85rem 'Fira Sans', sans-serif;
+    width: 170px;
+}
+
+#inputSection #AboutTextsettings {
+    flex: 1;
+    font: 'Fira Sans', sans-serif;
+    font-size: 15px;
+    color: rgb(187, 94, 28);
+    padding-bottom: 3px;
+    padding-top: 10px;
+}
+
+#inputSection #aboutTextArea {
+    flex: 1;
+    font: 0.85rem 'Fira Sans', sans-serif;
+    min-width: 170px;
+    max-width: 170px;
+    min-height: 40px;
+    max-height: 40px;
+}
+
+#inputSection #PictureSettings {
+    flex: 1;
+    font: 'Fira Sans', sans-serif;
+    font-size: 15px;
+    color: rgb(187, 94, 28);
+    padding-bottom: 3px;
+    padding-top: 10px;
+}
+
+#inputSection #pictureInput {
+    flex: 1;
+    flex: 1;
+    font: 0.85rem 'Fira Sans', sans-serif;
+    width: 170px;
+}
+
+#inputSection #saveChangesButton {
+    flex: 1;
+}
+
+#previewSection #previewPPicture {
+    flex: 1;
+    height: 90px;
+    width: 90px;
+    border-radius: 45px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#previewSection #identiconPreview {
+    flex: 1;
+    height: 90px;
+    width: 90px;
+    border-radius: 45px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#previewSection #previewNickName {
+    flex: 1;
+    font: 'Fira Sans', sans-serif;
+    font-size: 22px;
+    color: rgb(187, 94, 28);
+    margin-left: auto;
+    margin-right: auto;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+#previewSection #previewPubkey {
+    font: 'Fira Sans', sans-serif;
+    font-size: 10px;
+    color: rgb(187, 94, 28);
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#previewSection #previewBio {
+    flex: 1;
+    font: 'Fira Sans', sans-serif;
+    font-size: 20px;
+    color: rgb(187, 94, 28);
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 50%;
+    padding-top: 20px;
+    font-size: 17px;
+    text-align: center;
+}
+
+#previewChangesButton {
+    font: 'Fira Sans', sans-serif;
+    font-size: 15px;
+    color: white;
+    border-radius: 5px;
+    background-color: rgb(252, 169, 3);
+    border: 0px;
+}
+
+.settingsClose {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;  
+}
+
+.settingsClose:hover,
+.settingsClose:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer; 
+}
+
+
+#saveChangesButton {
+    font: 'Fira Sans', sans-serif;
+    font-size: 15px;
+    color: white;
+    border-radius: 5px;
+    background-color: rgb(252, 169, 3);
+    border: 0px;
+}
+
+.articles {
+    text-align: center;
+    font-size: 20px;
+    color: white;
+    display: block;
+    align-items: center;
+    justify-content: center;
+    height: 500px;
+    width: 50%;
+    float: left;
+}
+
+
+#homeUserName {
+    font: 'Fira Sans', sans-serif;
+    font-size: 22px;
+    color: white;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+#homeProfilePic {
+    width: 90px;
+    height: 90px;
+    border-radius: 45px;
+    background-color: #ffffff;
+    margin-left: auto;
+    margin-right: auto;
+    background-size: cover;
+}
+
+#identicon {
+    width: 90px;
+    height: 90px;
+    border-radius: 45px;
+    background-color: #ffffff;
+    margin-left: auto;
+    margin-right: auto;
+    background-size: cover;
+}
+
+#publickeyhome {
+    font-size: 10px;
+    font: 'Fira Sans', sans-serif;
+    color: rgb(187, 94, 28);
+    margin-left: auto;
+    margin-right: auto;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}
+
+#userBio {
+    padding-top: 20px;
+    font-size: 17px;
+}
+
+#card-container {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  
+.card {
+    height: 300px;
+    width: calc((100% / 3) - 16px);
+    margin: 8px;
+    border-radius: 3px;
+    transition: all 200ms ease-in-out;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+}
+
+.card:hover {
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.card-actions {
+    margin: 8px;
+    padding: 16px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#loader {
+    display: flex;
+}
+
+.skeleton-card {
+    height: 300px;
+    width: calc((100% / 3) - 16px);
+    margin: 8px;
+    border-radius: 3px;
+    transition: all 200ms ease-in-out;
+    position: relative;
+    background-color: #ffffff;
+}
+
+.skeleton-card::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    transform: translateX(-100%);
+    background-image: linear-gradient(90deg, rgba(255, 255, 255, 0) 0, rgba(255, 255, 255, 0.2) 20%, rgba(255, 255, 255, 0.5) 60%, rgba(255, 255, 255, 0));
+    animation: load 1s infinite;
+}
+
+@keyframes load {
+    100% {
+        transform: translateX(100%);
+    }
+}
+  
+@media screen and (prefers-reduced-motion: reduce) {
+    .skeleton-card::after {
+        animation: none;
+    }
+}
+
+#messagesList {
+    display: flex;
+    flex-wrap: wrap
+}
+
+.right-section {
+    font-size: 20px;
+    color: white;
+    display: block;
+    align-items: right;
+    justify-content: right;
+    height: 500px;
+    width: 25%;
+    float: left;
+}
+
+#input-pubkey {
+    padding-right: 20px;
+}

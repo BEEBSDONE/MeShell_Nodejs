@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="https://unpkg.com/nostr-tools/lib/nostr.bundle.js"></script>
+        <title>MeShell</title>
+        <link href="styles.css" rel="stylesheet"></link>
+    </head>
+    <body>
+        <img id="LoginLogo" src="/assets/MeShell_Logo_200_blank.png" alt="MeShell Logo" title="Michel" width="25%">
+        <div class="Inputs">
+            <input type="text" autocomplete="off" id="pubKeyEntry" placeholder="Public Key" size="62">
+            <br><input type="text" autocomplete="off" id="privKeyEntry" placeholder="If you have a Nostr account enter your private key" size="62">
+        </div>
+        <br>
+        <div id="ParentLoginButton">
+        <!--
+        <button id="LoginButton" onclick="login(document.getElementById('pubKeyEntry').value, document.getElementById('privKeyEntry').value)">Login</button>
+        -->
+        <a href="homepage.html">
+            <button id="LoginButton">Login</button>
+        </a>
+        </div>
+        <p style="color: white; text-align: center">If you don't have a Nostr account you can generate below</p>
+        <div id="ParentRedPill">
+            <script>
+                //RED PILL
+                function generateKeys() {
+                    var privKey = window.NostrTools.generatePrivateKey();
+                    var pubKey = window.NostrTools.getPublicKey(privKey);
+
+                    let nsec = window.NostrTools.nip19.nsecEncode(privKey);
+                    let npub = window.NostrTools.nip19.npubEncode(pubKey);
+
+                    localStorage.setItem("privKey", privKey);
+                    localStorage.setItem("pubKey", pubKey);
+                    localStorage.setItem("nsec", nsec);
+                    localStorage.setItem("npub", npub);
+                        
+                    document.getElementById("pubKeyEntry").value = npub;
+                    document.getElementById("privKeyEntry").value = nsec;
+
+                    document.getElementById("LoginButton").addEventListener("click", function(){
+                        window.location.href = "http://localhost:3000/" + npub;
+                    });
+                }
+            </script>
+            <!--
+            <script>
+                //LOGIN BUTTON
+                function login(pubKey, privKey) {
+
+                    var entryPrivKeyNsec = document.getElementById("privKeyEntry").value;
+
+                    if (entryPrivKeyNsec.startsWith("nsec")) {
+                        nsec = entryPrivKeyNsec
+                        var npub = window.NostrTools.nip19.npubEncode(pubKey);
+                        //convert from nsec to privKey
+                        assert(type === 'npub')
+                        assert(data === privKey)
+                        //get pubKey from privKey
+                        var pubKey = window.NostrTools.getPublicKey(privKey);
+
+                        localStorage.setItem("privKey", privKey);
+                        localStorage.setItem("pubKey", pubKey);
+                        localStorage.setItem("nsec", nsec);
+                        localStorage.setItem("npub", npub);
+                            
+                        document.getElementById("pubKeyEntry").value = npub;
+                        document.getElementById("privKeyEntry").value = nsec;
+
+                        document.getElementById("LoginButton").addEventListener("click", function(){
+                            window.location.href = "http://localhost:3000/" + npub;
+                        });
+
+                    } else {
+                        var privKey = entryPrivKeyNsec;
+                        var pubKey = window.NostrTools.getPublicKey(privKey);
+                        var npub = window.NostrTools.nip19.npubEncode(pubKey);
+                        var nsec = window.NostrTools.nip19.nsecEncode(privKey);
+                        
+                        localStorage.setItem("privKey", privKey);
+                        localStorage.setItem("pubKey", pubKey);
+                        localStorage.setItem("nsec", nsec);
+                        localStorage.setItem("npub", npub);
+                            
+                        document.getElementById("pubKeyEntry").value = npub;
+                        document.getElementById("privKeyEntry").value = nsec;
+                    }
+
+                    document.getElementById("LoginButton").addEventListener("click", function(){
+                        window.location.href = "http://localhost:3000/" + npub;
+                    });
+                }
+            </script>
+            -->
+
+            <button id="RedPill" onclick="generateKeys()">RED PILL</button>
+        </div>
+    </body>
+</html>
