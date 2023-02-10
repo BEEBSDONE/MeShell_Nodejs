@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://unpkg.com/nostr-tools/lib/nostr.bundle.js"></script>
+    <script type="module">
+        import { identiconSvg } from 'https://unpkg.com/minidenticons@2.0.0/minidenticons.min.js'
+    </script>
+    <script type="text/javascript" src="./relays.js"></script>
+    <script type="text/javascript" src="./sendNote.js"></script>
+    <script type="text/javascript" src="./sendUserMeta.js"></script>
+    <script type="text/javascript" src="./previewSettings.js"></script>
+    <!--
+    <script type="text/javascript" src="./modalSettings.js"></script>
+    <script type="text/javascript" src="./modalPublishNote.js"></script>
+    <script type="text/javascript" src="./userProfileCard.js"></script>
+    -->
+    <title>MeShell</title>
+    <link href="styles.css" rel="stylesheet"></link>
+</head>
+<body>
+    <img id="HomeLogo" 
+        src="/assets/MeShell_Logo_200_blank.png" 
+        alt="MeShell Logo" 
+        title="Michel" 
+        width="150px">
+
+    <div class="feed-selector">
+        <img id="first-edition-logo"
+            src="/assets/firstedition.png"
+            title="First Edition">
+        <br>
+        <img id="global-logo"
+            src="/assets/global.png"
+            title="Global Chat">
+            <br>
+        <img id="messages-logo"
+            src="/assets/message-logo.png"
+            title="Direct Messages">
+        <br>
+        <button id="publish-button">
+            <img class="publish-logo"
+            src="/assets/publish.png"
+            title="Publish">
+        </button>
+        <br>
+        <button id="settings-button">
+            <img id = "settingsLogo"
+            src="/assets/settings-logo.png"
+            title="Settings">
+        </button>
+    </div>
+    <div id="publish-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <textarea id="publish-textarea"
+                    rows="15"
+                    autocomplete="off"
+                    autocapitalize="on"
+                    placeholder="Say something to the world"></textarea>
+            <br>
+            <div id="padding-button"></div>
+            <div id="makeNoteButton">
+            <button id="publish-text-button" onclick="makeNote(document.getElementById('publish-textarea').value)">
+                Publish
+            </button>
+            </div>
+        </div>
+    </div>
+    <div id="settings-modal-id" class="settings-modal">
+        <div class="settings-modal-content">
+            <div class="settingsClose">&times;</div>
+            <div class="settingsSection">
+                <div id="inputSection">
+                    <div id="userNameTextSettings">User Name</div>
+                    <input id="petnameInput"
+                            placeholder="Your name here">
+                
+                    <div id="AboutTextsettings">About</div>
+                    <textarea id="aboutTextArea"
+                        placeholder = "You can write about yourself"></textarea>
+                
+                    <div id="PictureSettings">Profile Picture</div>
+                    <input id = "pictureInput"
+                        placeholder = "Paste your link here">
+                    <br>
+                    <button id="previewChangesButton" onclick="previewChanges()">Preview</button>
+                    <br>
+                    <button id="saveChangesButton" onclick="SendMetadata(document.getElementById('petnameInput').value, document.getElementById('aboutTextArea').value, document.getElementById('pictureInput').value)">Save</button>
+                </div>
+                <div id="previewSection">
+                    <div id="previewPPictureContainer">
+                        <img id="previewPPicture" src="" style="display: none;">
+                        <div id="identiconPreview" style="display: none;"></div>
+                    </div>
+                    <div id="previewNickName"></div>
+                    <div id="previewPubkey"></div>
+                    <div id="previewBio"></div>
+                </div>
+            </div>
+            <div id="relayContainer">
+                <!-- 
+                <script>
+                    document.getElementById("relay1").innerHTML = relay1URL;
+                    document.getElementById("relay2").innerHTML = relay2URL;
+                </script>
+
+                <div id = "relaysText">Relays</div>
+                <ul id="relaysList">
+                    <li id="relay1"></li>
+                    <li id="relay2"></li>
+                </ul>
+                <input type="text" id="relayInput">
+                <button id="addRelay">Add Relay</button>
+                -->
+            </div>
+        </div>
+    </div>
+    </div>
+    <div class="articles">
+        <div id="userInfo">
+            <div id="homeProfilePicContainer">
+                <img id="homeProfilePic" style="display: none;">
+                <div id="identicon" style="display: none;"></div>
+            </div>
+            <div id="homeUserName"></div>
+            <div id="publickeyhome"></div>
+            <div id="userBio"></div>
+            <div id="following"></div>
+            <div id="followers"></div>
+            
+            <br>
+            <br>
+        </div>
+        <!-- USER EVENTS CONTAINER -->
+        <div id="card-container"></div>
+        <div id="loader">
+            <div class="skeleton-card"></div>
+            <div class="skeleton-card"></div>
+            <div class="skeleton-card"></div>
+        </div>
+        <div class="card-actions">
+            <span>Showing
+                <span id="card-count"></span> of
+                <span id="card-total"></span> Notes
+            </span>
+        </div>
+        <!-- MESSAGES LIST-->
+        <div id="messagesList" style="display: none;">
+            <p>Messages List</p>
+        </div>
+
+        <script>
+            //GO TO MESSAGE SECTION
+            document.getElementById("messages-logo").addEventListener("click", function() {
+                document.getElementById("card-container").innerHTML = document.getElementById("messagesList").innerHTML;
+                document.getElementById('userInfo').style.display = "none";
+                document.getElementById('loader').style.display = "none";
+                document.querySelector('.skeleton-card').style.display = "none";
+                document.querySelector('.card-actions').style.display = "none";
+            });
+        </script>
+
+        <script>
+            //GO TO PROFILE
+        </script>
+
+        <script>
+            //USER EVENT CONTAINER (gonna be replaced by go to profile)
+            const cardContainer = document.getElementById("card-container");
+            const cardCountElem = document.getElementById("card-count");
+            const cardTotalElem = document.getElementById("card-total");
+            const loader = document.getElementById("loader");
+
+            const cardLimit = 99;
+            const cardIncrease = 12;
+            const pageCount = Math.ceil(cardLimit / cardIncrease);
+            let currentPage = 1;
+
+            cardTotalElem.innerHTML = cardLimit;
+
+            var throttleTimer;
+            const throttle = (callback, time) => {
+            if (throttleTimer) return;
+
+            throttleTimer = true;
+
+            setTimeout(() => {
+                callback();
+                throttleTimer = false;
+            }, time);
+            };
+
+            const createCard = (index) => {
+            const card = document.createElement("div");
+            card.className = "card";
+            card.innerHTML = index;
+            card.style.backgroundColor = "white";
+            cardContainer.appendChild(card);
+            };
+
+            const addCards = (pageIndex) => {
+            currentPage = pageIndex;
+
+            const startRange = (pageIndex - 1) * cardIncrease;
+            const endRange =
+                currentPage == pageCount ? cardLimit : pageIndex * cardIncrease;
+
+            cardCountElem.innerHTML = endRange;
+
+            for (let i = startRange + 1; i <= endRange; i++) {
+                createCard(i);
+            }
+            };
+
+            const handleInfiniteScroll = () => {
+            throttle(() => {
+                const endOfPage =
+                window.innerHeight + window.pageYOffset >= document.body.offsetHeight;
+
+                if (endOfPage) {
+                addCards(currentPage + 1);
+                }
+
+                if (currentPage === pageCount) {
+                removeInfiniteScroll();
+                }
+            }, 1000);
+            };
+
+            const removeInfiniteScroll = () => {
+            loader.remove();
+            window.removeEventListener("scroll", handleInfiniteScroll);
+            };
+
+            window.onload = function () {
+            addCards(currentPage);
+            };
+
+            window.addEventListener("scroll", handleInfiniteScroll);
+        </script>
+        <script>
+            //USER PROFILE CARD
+            var stringSvgDiv = "<identicon-svg username='" + pubKey + "'></identicon-svg>";
+            var UserPPicture = localStorage.getItem("UserPPicture");
+
+            if (!UserPPicture) {
+                document.getElementById('identicon').innerHTML = stringSvgDiv;
+                document.getElementById('identicon').style.display = "block";
+            } else {
+                document.getElementById('homeProfilePic').src = UserPPicture;
+                document.getElementById('homeProfilePic').style.display = "block";
+            }
+
+            var NickName = localStorage.getItem('NickName');
+            if (!NickName) {
+                document.getElementById("homeUserName").style.display = "none";
+            } else {
+                document.getElementById("homeUserName").innerHTML = NickName;
+            }
+
+
+            var UserAbout = localStorage.getItem('UserAbout');
+            if (!UserAbout) {
+                document.getElementById("userBio").style.display = "none";
+            } else {
+                document.getElementById("userBio").innerHTML = UserAbout;
+            }
+
+            document.getElementById('publickeyhome').innerHTML = npub;
+        </script>
+        <script>
+            //MODAL PUBLISH NOTE
+            var modal = document.getElementById("publish-modal");
+            var btn = document.getElementById("publish-button");
+            var span = document.getElementsByClassName("close")[0];
+            var text = document.getElementById('publish-textarea');
+
+            btn.onclick = function() {
+            modal.style.display = "block";
+            }
+
+            span.onclick = function() {
+            modal.style.display = "none";
+            document.getElementById('publish-textarea').value = '';
+            }
+
+            window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+                document.getElementById('publish-textarea').value = '';
+            }
+            }
+        </script>
+        <script>
+            //MODAL SETTINGS
+            var settingsModal = document.getElementById("settings-modal-id");
+            var settingsButton = document.getElementById("settings-button");
+            var settingsCloseButton = document.getElementsByClassName("settingsClose")[0];
+            var textPetname = document.getElementById("petnameInput").value;
+            var textAbout = document.getElementById("aboutTextArea").value;
+            var urlProfilePicture = document.getElementById("pictureInput").value;
+
+            settingsButton.onclick = function() {
+                settingsModal.style.display = "block";
+                
+                if (!UserPPicture) {
+                    document.getElementById('identiconPreview').innerHTML = stringSvgDiv;
+                    document.getElementById('identiconPreview').style.display = "block";
+                } else {
+                    document.getElementById('previewPPicture').src = UserPPicture;
+                    document.getElementById('previewPPicture').style.display = "block";
+                }
+
+                document.getElementById("petnameInput").value = NickName;
+                document.getElementById("aboutTextArea").value = UserAbout;
+                document.getElementById("previewPPicture").value = UserPPicture;
+                document.getElementById('previewNickName').innerHTML = NickName;
+                document.getElementById('previewBio').innerHTML = UserAbout;
+                document.getElementById('previewPubkey').innerHTML = npub;
+            }
+
+            settingsCloseButton.onlick = function() {
+                location.reload();
+                settingsModal.style.display = "none";
+            }
+
+            window.onclick = function(event) {
+                if (event.target == settingsModal) {
+                    settingsModal.style.display = "none";
+                }
+            }
+        </script>
+    </div>
+    <div class="right-section">
+        <div id="input-pubkey">
+            <input type="text" autocomplete="off" placeholder="enter public key to search">
+        </div>
+    </div>
+</body>
+</html>
