@@ -28,25 +28,33 @@ console.log(`failed to connect to ${defaultRelay2.url}`)
 })
 
 //SUB TO ME
-let subMe1 = defaultRelay1.sub([
+let subMe1kind1 = defaultRelay1.sub([
     {
         kinds: [1],
         authors: [pubKey]
     }
 ])
 
-let subMe2 = defaultRelay2.sub([
+let subMe2kind1 = defaultRelay2.sub([
     {
         kinds: [1],
         authors: [pubKey]
     }
 ])
 
-subMe1.on('event', event => {
+subMe1kind1.on('event', event => {
 console.log('got event:', event)
+
+let content1 = event.content;
+console.log("New Note: " + content1);
+
 })
 
 
-subMe2.on('event', event => {
+subMe2kind1.on('event', event => {
 console.log('got event:', event)
+
+let content2 = event.content;
+console.log("New Note: " + content2);
+
 })

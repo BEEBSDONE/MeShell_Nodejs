@@ -13,6 +13,7 @@
     <script type="text/javascript" src="./sendUserMeta.js"></script>
     <script type="text/javascript" src="./previewSettings.js"></script>
     <!--
+    <script type="text/javascript" src="../node_modules/masonry-layout/dist/masonry.pkgd.min.js"></script>
     <script type="text/javascript" src="./modalSettings.js"></script>
     <script type="text/javascript" src="./modalPublishNote.js"></script>
     <script type="text/javascript" src="./userProfileCard.js"></script>
@@ -118,7 +119,6 @@
             </div>
         </div>
     </div>
-    </div>
     <div class="articles">
         <div id="userInfo">
             <div id="homeProfilePicContainer">
@@ -134,7 +134,7 @@
             <br>
             <br>
         </div>
-        <!-- USER EVENTS CONTAINER -->
+        <!-- USER EVENT CONTAINER (gonna be replaced by go to profile) -->
         <div id="card-container"></div>
         <div id="loader">
             <div class="skeleton-card"></div>
@@ -147,20 +147,52 @@
                 <span id="card-total"></span> Notes
             </span>
         </div>
-        <!-- MESSAGES LIST-->
-        <div id="messagesList" style="display: none;">
-            <p>Messages List</p>
+
+        <!-- GLOBAL FEED -->
+        <div class="globalFeedGrid" style="display: none;"></div>
+
+        <script>
+            //GLOBAL FEED GRID
+        </script>
+
+
+        <!-- MESSAGES SECTION-->
+        <div id="messagesContainer" style="display: none;">
+            <div id="messagesheader">
+                <img id="mesagesHeaderPicture" style="display: none;">
+                <div id="messagesheaderIdenticon" style="display: none;"></div>
+
+                <div id="messagesText" style="display: none;">Messages</div>
+            </div>
+            <div id="messageList">
+                <!-- MESSAGES LIST -->
+            </div>
         </div>
 
         <script>
             //GO TO MESSAGE SECTION
             document.getElementById("messages-logo").addEventListener("click", function() {
-                document.getElementById("card-container").innerHTML = document.getElementById("messagesList").innerHTML;
+                document.getElementById("card-container").innerHTML = document.getElementById("messagesContainer").innerHTML;
                 document.getElementById('userInfo').style.display = "none";
                 document.getElementById('loader').style.display = "none";
                 document.querySelector('.skeleton-card').style.display = "none";
                 document.querySelector('.card-actions').style.display = "none";
+                document.getElementById('messagesContainer').style.display = "block";
+                document.getElementById('messagesText').style.display = "block";
             });
+        </script>
+
+        <script>
+            //GO TO GLOBAL FEED
+            document.getElementById("global-logo").addEventListener("click", function() {
+                document.getElementById("card-container").style.display = "none";
+                document.getElementById('userInfo').style.display = "none";
+                document.getElementById('loader').style.display = "none";
+                document.querySelector('.skeleton-card').style.display = "none";
+                document.querySelector('.card-actions').style.display = "none";
+
+            });
+
         </script>
 
         <script>

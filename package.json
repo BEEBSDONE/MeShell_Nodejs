@@ -12,6 +12,7 @@
   "license": "ISC",
   "dependencies": {
     "express": "^4.18.2",
+    "masonry-layout": "^4.2.2",
     "nostr-tools": "^1.2.1"
   },
   "devDependencies": {
