@@ -43,18 +43,26 @@ let subMe2kind1 = defaultRelay2.sub([
 ])
 
 subMe1kind1.on('event', event => {
-console.log('got event:', event)
+console.log('Your Opinion: ', event)
 
 let content1 = event.content;
-console.log("New Note: " + content1);
+console.log("Your Opinion: " + content1);
 
 })
-
 
 subMe2kind1.on('event', event => {
-console.log('got event:', event)
+console.log('Your Opinion: ', event)
 
 let content2 = event.content;
-console.log("New Note: " + content2);
+console.log("Your Opinion: " + content2);
 
 })
+
+//GLOBAL CHAT
+let subGlobalRelay1 = defaultRelay1.sub([
+    {
+        kinds: [1],
+        authors: []
+    }
+])
+

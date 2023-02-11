@@ -134,32 +134,15 @@
             <br>
             <br>
         </div>
-        <!-- USER EVENT CONTAINER (gonna be replaced by go to profile) -->
-        <div id="card-container"></div>
-        <div id="loader">
-            <div class="skeleton-card"></div>
-            <div class="skeleton-card"></div>
-            <div class="skeleton-card"></div>
-        </div>
-        <div class="card-actions">
-            <span>Showing
-                <span id="card-count"></span> of
-                <span id="card-total"></span> Notes
-            </span>
-        </div>
 
         <!-- GLOBAL FEED -->
-        <div class="globalFeedGrid" style="display: none;"></div>
-
-        <script>
-            //GLOBAL FEED GRID
-        </script>
-
+        <div id="globalGrid" style="display: none;"></div>
 
         <!-- MESSAGES SECTION-->
         <div id="messagesContainer" style="display: none;">
             <div id="messagesheader">
-                <img id="mesagesHeaderPicture" style="display: none;">
+                <div id="messagesHeaderBox" style="display: none;"></div>
+                <img id="messagesHeaderPicture" src="" style="display: none;">
                 <div id="messagesheaderIdenticon" style="display: none;"></div>
 
                 <div id="messagesText" style="display: none;">Messages</div>
@@ -171,108 +154,54 @@
 
         <script>
             //GO TO MESSAGE SECTION
+
             document.getElementById("messages-logo").addEventListener("click", function() {
-                document.getElementById("card-container").innerHTML = document.getElementById("messagesContainer").innerHTML;
                 document.getElementById('userInfo').style.display = "none";
-                document.getElementById('loader').style.display = "none";
-                document.querySelector('.skeleton-card').style.display = "none";
-                document.querySelector('.card-actions').style.display = "none";
+                document.getElementById('messagesHeaderBox').style.display = "block"
                 document.getElementById('messagesContainer').style.display = "block";
                 document.getElementById('messagesText').style.display = "block";
+                document.getElementById('createMessageButton').style.display = "block";
+                document.getElementById('createMessageButton').src = "/assets/create_message.png";
+
+                var messagesHeaderPPicture = localStorage.getItem('UserPPicture');
+            
+                if (!localStorage.getItem('UserPPicture')) {
+                    document.getElementById('messagesHeaderPicture').style.display = "none";
+                    document.getElementById('messagesheaderIdenticon').style.display = "block";
+                    document.getElementById('messagesheaderIdenticon').innerHTML = stringSvgDiv;
+                } else {
+                    document.getElementById('messagesheaderIdenticon').style.display = "none";
+                    document.getElementById('messagesHeaderPicture').style.display = "block";
+                    document.getElementById('messagesHeaderPicture').src = messagesHeaderPPicture;
+                }
             });
         </script>
 
         <script>
             //GO TO GLOBAL FEED
             document.getElementById("global-logo").addEventListener("click", function() {
-                document.getElementById("card-container").style.display = "none";
                 document.getElementById('userInfo').style.display = "none";
-                document.getElementById('loader').style.display = "none";
-                document.querySelector('.skeleton-card').style.display = "none";
-                document.querySelector('.card-actions').style.display = "none";
+                document.getElementById('globalGrid').style.display = "block";
 
+                let content = subGlobalRelay1.content;
+            
+                let masonryItem = document.createElement("div");
+                masonryItem.classList.add("masonry-item");
+                masonryItem.innerHTML = content;
+
+                let masonryGrid = document.getElementById("globalGrid");
+                masonryGrid.appendChild(masonryItem);
             });
 
+            
+
+            
         </script>
 
         <script>
             //GO TO PROFILE
         </script>
 
-        <script>
-            //USER EVENT CONTAINER (gonna be replaced by go to profile)
-            const cardContainer = document.getElementById("card-container");
-            const cardCountElem = document.getElementById("card-count");
-            const cardTotalElem = document.getElementById("card-total");
-            const loader = document.getElementById("loader");
-
-            const cardLimit = 99;
-            const cardIncrease = 12;
-            const pageCount = Math.ceil(cardLimit / cardIncrease);
-            let currentPage = 1;
-
-            cardTotalElem.innerHTML = cardLimit;
-
-            var throttleTimer;
-            const throttle = (callback, time) => {
-            if (throttleTimer) return;
-
-            throttleTimer = true;
-
-            setTimeout(() => {
-                callback();
-                throttleTimer = false;
-            }, time);
-            };
-
-            const createCard = (index) => {
-            const card = document.createElement("div");
-            card.className = "card";
-            card.innerHTML = index;
-            card.style.backgroundColor = "white";
-            cardContainer.appendChild(card);
-            };
-
-            const addCards = (pageIndex) => {
-            currentPage = pageIndex;
-
-            const startRange = (pageIndex - 1) * cardIncrease;
-            const endRange =
-                currentPage == pageCount ? cardLimit : pageIndex * cardIncrease;
-
-            cardCountElem.innerHTML = endRange;
-
-            for (let i = startRange + 1; i <= endRange; i++) {
-                createCard(i);
-            }
-            };
-
-            const handleInfiniteScroll = () => {
-            throttle(() => {
-                const endOfPage =
-                window.innerHeight + window.pageYOffset >= document.body.offsetHeight;
-
-                if (endOfPage) {
-                addCards(currentPage + 1);
-                }
-
-                if (currentPage === pageCount) {
-                removeInfiniteScroll();
-                }
-            }, 1000);
-            };
-
-            const removeInfiniteScroll = () => {
-            loader.remove();
-            window.removeEventListener("scroll", handleInfiniteScroll);
-            };
-
-            window.onload = function () {
-            addCards(currentPage);
-            };
-
-            window.addEventListener("scroll", handleInfiniteScroll);
-        </script>
         <script>
             //USER PROFILE CARD
             var stringSvgDiv = "<identicon-svg username='" + pubKey + "'></identicon-svg>";
@@ -370,6 +299,7 @@
         <div id="input-pubkey">
             <input type="text" autocomplete="off" placeholder="enter public key to search">
         </div>
+        <img id="createMessageButton" src="" style="display: none;">
     </div>
 </body>
 </html>
