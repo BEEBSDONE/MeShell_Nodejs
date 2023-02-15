@@ -8,8 +8,8 @@
     <script type="module">
         import { identiconSvg } from 'https://unpkg.com/minidenticons@2.0.0/minidenticons.min.js'
     </script>
-    <script type="text/javascript" src="./relays.js"></script>
-    <script type="text/javascript" src="./sendNote.js"></script>
+    <script type="module" src="./relays.js"></script>
+    <script type="module" src="./sendNote.js"></script>
     <script type="text/javascript" src="./sendUserMeta.js"></script>
     <script type="text/javascript" src="./previewSettings.js"></script>
     <!--
@@ -183,14 +183,6 @@
                 document.getElementById('userInfo').style.display = "none";
                 document.getElementById('globalGrid').style.display = "block";
 
-                let content = subGlobalRelay1.content;
-            
-                let masonryItem = document.createElement("div");
-                masonryItem.classList.add("masonry-item");
-                masonryItem.innerHTML = content;
-
-                let masonryGrid = document.getElementById("globalGrid");
-                masonryGrid.appendChild(masonryItem);
             });
 
             
@@ -204,6 +196,8 @@
 
         <script>
             //USER PROFILE CARD
+            pubKey = localStorage.getItem("pubKey");
+            npub = localStorage.getItem("npub");
             var stringSvgDiv = "<identicon-svg username='" + pubKey + "'></identicon-svg>";
             var UserPPicture = localStorage.getItem("UserPPicture");
 
