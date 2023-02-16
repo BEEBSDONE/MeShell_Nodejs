@@ -1,7 +1,8 @@
+import { pool } from '../node_modules/nostr-tools/pool.test.js'
+
+
 var pubKey = localStorage.getItem("pubKey");
 var privKey = localStorage.getItem("privKey");
-
-export const pool = new window.NostrTools.SimplePool();
 
 let relay1URL = "wss://nostr-pub.wellorder.net";
 let relay2URL = "wss://relay.nostr.info";
