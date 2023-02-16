@@ -4,11 +4,13 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://unpkg.com/nostr-tools/lib/nostr.bundle.js"></script>
+    <script type="module">
+        import * as nostrTools from 'https://unpkg.com/nostr-tools/lib/nostr.bundle.js'
+    </script>
     <script type="module">
         import { identiconSvg } from 'https://unpkg.com/minidenticons@2.0.0/minidenticons.min.js'
     </script>
-    <script type="module" src="./relays.js"></script>
+    <script type="module"> import { pool, relays, relay } from "./relays.js"</script>
     <script type="module" src="./sendNote.js"></script>
     <script type="text/javascript" src="./sendUserMeta.js"></script>
     <script type="text/javascript" src="./previewSettings.js"></script>

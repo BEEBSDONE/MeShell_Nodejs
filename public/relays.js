@@ -4,14 +4,14 @@ var privKey = localStorage.getItem("privKey");
 export const pool = new window.NostrTools.SimplePool();
 
 let relay1URL = "wss://nostr-pub.wellorder.net";
-let relay2URL = "wss://nostr-pub.wellorder.net";
+let relay2URL = "wss://relay.nostr.info";
 
-export let relays = ["wss://nostr-pub.wellorder.net", "wss://nostr-pub.wellorder.net"]
+export let relays = ["wss://nostr-pub.wellorder.net"];
 
-let relay = await pool.ensureRelay('wss://relay.damus.io')
+export let relay = await pool.ensureRelay("ws://relay.nostr.info");
 
 let subs = pool.sub([...relays, relay], {
-  authors: ['pubKey']
+  authors: [pubKey]
 })
 
 subs.forEach(sub =>

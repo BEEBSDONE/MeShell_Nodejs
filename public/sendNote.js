@@ -1,6 +1,6 @@
 import { pool, relays } from './relays.js'
 
-function makeNote (note) {
+export function makeNote (note) {
     let newEvent = {
       kind: 1,
       pubkey: pubKey,
