@@ -1,5 +1,5 @@
 import { relays } from './relays.js'
-import { pool } from '../node_modules/nostr-tools/pool.test.js'
+import { pool } from './node_modules/nostr-tools/pool.test.js'
 
 export function makeNote (note) {
     let newEvent = {
