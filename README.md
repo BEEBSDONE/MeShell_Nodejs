@@ -4,3 +4,5 @@ Not only you can share your researches freely, you can also join dedicated chann
 If you don't find a channel that suits you, it's possible to create your own channels if you want to react with your audience or to make newsletters.
 Will be available on web, iOS and Android.
 [MeShell.io](https://meshell.io) for more information.
+
+Nostr profile: npub1delzmpe2lcua5dwz94e9fu79u2kj7mmdrsqg0kyyh0a8gmq3f3fqcual36
